@@ -17,6 +17,7 @@ import './map.css';
      {
         // alert('im test')
         console.log("test")
+        $('#modalclosebtn').trigger( "click" );
      }
 export default class Map extends Component {
   
@@ -57,7 +58,8 @@ export default class Map extends Component {
         map.on('click', function(e){
           // this.setState({ isOpen: true })
             // test()
-            $('#mymodalbtn').trigger( "click" );
+            $('#mymodalopenbtn').trigger( "click" );
+            
 
             // L.marker(e.latlng).addTo(map);
             // rowcenter.push([e.latlng.lat,e.latlng.lng])
@@ -76,24 +78,16 @@ export default class Map extends Component {
   render() {
     return (
         <>
-        <div className='map' id='map'>
-
-            <Button variant="" id="mymodalbtn" onClick={this.openModal}>
-                Launch demo modal
-            </Button>
-        </div>
+        <div className='map' id='map'></div>
+        <Button variant="" id="mymodalopenbtn" onClick={this.openModal}>m</Button>  
         <Modal show={this.state.isOpen} onHide={this.closeModal}>
           <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
           <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.closeModal}>Close</Button>
-              
-            
+            <Button variant="secondary" id="modalclosebtn" onClick={this.closeModal}>Close</Button>
             <Button variant="success" onClick={()=>{savefunc()}}>Save</Button>
-              
-            
           </Modal.Footer>
         </Modal>
        
