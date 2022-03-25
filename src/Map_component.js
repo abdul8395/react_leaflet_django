@@ -1,15 +1,30 @@
 import React, { Component } from 'react';
 import L from 'leaflet';
+import { FeatureGroup } from "react-leaflet";
 import { Modal, Button } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'leaflet/dist/leaflet.css';
+import { EditControl } from "react-leaflet-draw";
+import "leaflet-draw/dist/leaflet.draw.css";
 import styled from 'styled-components';
 import $ from 'jquery';
 import './map.css';
 
 
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-icon.png",
+  iconUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-icon.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-shadow.png",
+});
 
 
+
+var polycoords;
     const Wrapper=styled.div`
       height:${props => props.height};
     `;
@@ -17,8 +32,10 @@ import './map.css';
      {
         // alert('im test')
         console.log("test")
+        console.log(polycoords)
         $('#modalclosebtn').trigger( "click" );
      }
+     const _created = (e) => console.log(e);
 export default class Map extends Component {
   
   state = {
@@ -40,6 +57,77 @@ export default class Map extends Component {
                 subdomains:['mt0','mt1','mt2','mt3']
             });
 
+    var drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+  
+      var drawControl = new L.Control.Draw({
+        position: 'topleft',
+        draw:{
+          polygon : {
+                      allowIntersection: false,
+                      showLength: true,
+                      metric:['km', 'm']
+                  },
+          polyline:false,
+          marker: false,
+          squire: false,
+          circlemarker: false,
+          rectangle: false,
+          circle: false,
+           
+          },
+        edit: {
+          featureGroup: drawnItems,
+          remove: true,
+          edit: true,
+  
+        }
+      });
+    
+    map.addControl(drawControl);
+      
+    map.on(L.Draw.Event.CREATED, function (e) {
+      console.clear();
+      var type = e.layerType
+      var layer = e.layer;
+      // $("#cords").val('');
+      var arr = layer.toGeoJSON()
+       polycoords = JSON.stringify(arr);
+       $('#mymodalopenbtn').trigger( "click" );
+      //   geomfordb=arr_for_db
+      // // console.log(geomfordb)
+      // // console.log(arr_for_db);
+      // // $("#cords").val(JSON.stringify(arr_for_db))
+      //     // var geom3=geom1.toString();
+      //     // console.log(geom3);
+      // // var geom=layer.getLatLngs();
+  
+      // $("#cords").val(arr_for_db);
+      // if (type === 'marker') {
+      //     layer.bindPopup('A popup!');
+      //   }
+  
+        drawnItems.addLayer(layer);
+
+  
+    });
+  
+  
+    map.on('draw:editvertex', function (e) { 
+      console.log(e)
+      var type = e.polyType;
+      var poly = e.poly;
+      var arr = poly.toGeoJSON()
+       polycoords = JSON.stringify(arr);
+      $('#mymodalopenbtn').trigger( "click" );
+      // geomfordb=arr_for_db
+      // // console.log(geomfordb)
+      // $("#cords").val(arr_for_db)
+    });    
+    
+    
+   
+
     var baseLayers = {
         "Google Street": googlestreet,
         "Google Satellite": googleSat,
@@ -51,7 +139,7 @@ export default class Map extends Component {
     setTimeout(
       function() {
         map.on('click', function(e){
-            $('#mymodalopenbtn').trigger( "click" );
+            // $('#mymodalopenbtn').trigger( "click" );
             // L.marker(e.latlng).addTo(map);
             console.log(e.latlng.lat + ", " + e.latlng.lng)
         });
@@ -67,7 +155,9 @@ export default class Map extends Component {
   render() {
     return (
         <>
-        <div className='map' id='map'></div>
+        <div className='map' id='map'>
+        </div>
+
         <Button variant="" id="mymodalopenbtn" onClick={this.openModal}>m</Button>  
         <Modal show={this.state.isOpen} onHide={this.closeModal}>
           <Modal.Header closeButton>
