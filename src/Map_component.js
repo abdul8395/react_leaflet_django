@@ -6,6 +6,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import 'leaflet/dist/leaflet.css';
 import { EditControl } from "react-leaflet-draw";
 import "leaflet-draw/dist/leaflet.draw.css";
+import { polylineMeasure } from "leaflet.polylinemeasure";
+import "leaflet.polylinemeasure/Leaflet.PolylineMeasure.css";
 import styled from 'styled-components';
 import $ from 'jquery';
 import './map.css';
@@ -125,7 +127,7 @@ export default class Map extends Component {
       // $("#cords").val(arr_for_db)
     });    
     
-    
+    var measuredistance=L.control.polylineMeasure({showUnitControl: true}).addTo(map);
    
 
     var baseLayers = {
