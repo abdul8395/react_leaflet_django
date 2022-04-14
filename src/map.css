@@ -47,3 +47,34 @@
     background-size: 18px;
     background-color: rgba(255, 255, 255, 1);
   }
+
+  .fbtn{
+   
+  }
+
+  .filtersdiv {
+    margin-top: 5px;
+    margin-left: 80px;
+    z-index: 20000;
+    position: relative;
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.281);
+    max-width: 330px;
+    /* min-h: 330px; */
+    /* justify-content: space-between; */
+    justify-content: center;
+
+  }
+  #fheading{
+    margin-top: 12px; /* top | right | bottom | left */
+    margin-left: 5px; 
+  }
+  .fbtn{
+    /* margin-right: 50px; */
+    /* margin-left: 5px; */
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+  }
+
+
