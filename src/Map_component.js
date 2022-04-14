@@ -25,65 +25,7 @@ L.Icon.Default.mergeOptions({
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/images/marker-shadow.png",
 });
 
-var greenicon = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
 
-var redicon = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-
-var yellowicon = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-var blackicon = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-var blueicon = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-var greyicon = new L.Icon({
-  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
-
-var SchoolsIcon = new L.Icon({
-  iconUrl: 'https://theaustraliaproject.org/scripts/AWIS/marker/TeachersSchools_Icon_Marker.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41]
-});
 
 var color0='gray'
 var color1='green'
@@ -149,6 +91,10 @@ var legend
      }
 
      
+
+    //  const url = "http://127.0.0.1:8000/farmers/farmers/1/";
+    //  const response = await fetch(url)
+    //  const fields = await response.json();
      
     
      var geojson_from_url={
@@ -370,7 +316,7 @@ var legend
               "size": "6",
               "p_index":  "3",
               "k_index": 2,
-              "pH": "0.5",
+              "pH": "3.606",
               "SQ": 4,
               "RM": 3
             }
@@ -418,7 +364,8 @@ var legend
         ]
       }
     }
-    var data=geojson_from_url.fields.features
+    var fields=geojson_from_url.fields
+    var data=fields.features
     // console.log(data[0].properties.pH)
 
     
@@ -658,7 +605,6 @@ export default class Map extends Component {
   
   state = {
     isOpen: false,
-    filterval:'ph'
   };
   openModal = () => this.setState({ isOpen: true });
   closeModal = () => this.setState({ isOpen: false });
@@ -678,166 +624,8 @@ export default class Map extends Component {
                 subdomains:['mt0','mt1','mt2','mt3']
             });
 
-            polygon_maker_by_filter("pH") 
+    polygon_maker_by_filter("pH") 
             
-         
-
-
-          // axios.get('https://sheetdb.io/api/v1/vpr1dwxs4ilml?sheet=django_project_data').then(resp => {
-          //   console.log(resp.data);
-          //   var data=resp.data
-          //   for (var i = 0; i < data.length; i++) {
-          //     if(data[i].feature_type=='marker'){
-          //       if(data[i].coordinates !== null && data[i].coordinates !== ''){
-          //         allmarkers_arr[i] = L.geoJson(JSON.parse(data[i].coordinates), {
-          //             pointToLayer: function(feature, latlng) {
-          //               if (data[i].PH_value == "0") {
-          //                 // L.marker(latlng, {icon: grey});
-          //                 return L.circleMarker(latlng, {
-          //                   stroke:false,
-          //                   // color: getColor(gtype), // you can call the getColor function
-          //                   radius: 5,
-          //                   fillColor: color0,
-          //                   fillOpacity: 1
-          //                 })
-          //               }else if(data[i].PH_value == "1"){
-          //                 return L.marker(latlng, {icon: yellowicon});
-          //                 // return L.circleMarker(latlng, {
-          //                 //   stroke:false,
-          //                 //   // color: getColor(gtype), // you can call the getColor function
-          //                 //   radius: 5,
-          //                 //   fillColor: color1,
-          //                 //   fillOpacity: 1
-          //                 // })
-          //               }else if(data[i].PH_value == "2"){
-          //                 return L.circleMarker(latlng, {
-          //                   stroke:false,
-          //                   // color: getColor(gtype), // you can call the getColor function
-          //                   radius: 5,
-          //                   fillColor: color2,
-          //                   fillOpacity: 1
-          //                 })
-          //               }else if(data[i].PH_value == "3"){
-          //                 return L.circleMarker(latlng, {
-          //                   stroke:false,
-          //                   // color: getColor(gtype), // you can call the getColor function
-          //                   radius: 5,
-          //                   fillColor: color3,
-          //                   fillOpacity: 1
-          //                 })
-          //               }else if(data[i].PH_value == "4"){
-          //                 return L.circleMarker(latlng, {
-          //                   stroke:false,
-          //                   // color: getColor(gtype), // you can call the getColor function
-          //                   radius: 5,
-          //                   fillColor: color4,
-          //                   fillOpacity: 1
-          //                 })
-          //               }else if(data[i].PH_value == "5"){
-          //                 return L.marker(latlng, {icon: redicon});
-          //                 // return L.circleMarker(latlng, {
-          //                 //   stroke:false,
-          //                 //   // color: getColor(gtype), // you can call the getColor function
-          //                 //   radius: 5,
-          //                 //   fillColor: color5,
-          //                 //   fillOpacity: 1
-          //                 // })
-          //               }else if(data[i].PH_value == "6"){
-          //                 return L.circleMarker(latlng, {
-          //                   stroke:false,
-          //                   // color: getColor(gtype), // you can call the getColor function
-          //                   radius: 5,
-          //                   fillColor: color6,
-          //                   fillOpacity: 1
-          //                 })
-          //               }else{
-          //                 return L.circleMarker(latlng, {
-          //                   stroke:false,
-          //                   // color: getColor(gtype), // you can call the getColor function
-          //                   radius: 5,
-          //                   fillColor: 'white',
-          //                   fillOpacity: 1
-          //                 })
-          //               }
-          //             },
-          //           onEachFeature: function (feature, layer) {
-          //                   layer.bindPopup('id: '+ data[i].id+'<br>polygon_name: '+ data[i].polygon_name+'<br>Price: '+ data[i].price+'<br>P_value: '+ data[i].P_value+'<br>K_value: '+ data[i].K_value+'<br>PH_value: '+ data[i].PH_value+'<br>Lime_value: '+ data[i].Lime_value,{minWidth: 200});                                  
-          //                   layer.bindTooltip(data[i].polygon_name,{permanent:false,direction:'center'});
-          //                 }
-          //         });
-                    
-          //         all_data_Layer.addLayer(allmarkers_arr[i]);
-          //       }
-          //     }
-          //     if(data[i].feature_type=='polygon'){
-          //       var gj={"type": "FeatureCollection","features": [ {"type": "Feature","properties": {},"geometry": { "type": "Point","coordinates": [ 73.828125,27.059125784374068]}}]}
-          
-          //       var poly=L.geoJSON(JSON.parse(data[i].coordinates), {
-          //         style: function(feature) {
-          //           var Priority = data[i].PH_value;
-          //           if(Priority=='0'){
-          //             return {
-          //             color: color0,
-          //             fillColor: color0,
-          //             fillOpacity: 0.8
-          //             }
-          //           }else if(Priority=='1'){
-          //             return {
-          //             color: color1,
-          //             fillColor: color1,
-          //             fillOpacity: 0.8
-          //             }
-          //           }else if(Priority=='2'){
-          //             return {
-          //             color: color2,
-          //             fillColor: color2,
-          //             fillOpacity: 0.8
-          //             }
-          //           }else if(Priority=='3'){
-          //             return {
-          //             color: color3,
-          //             fillColor: color3,
-          //             fillOpacity: 0.8
-          //             }
-          //           }else if(Priority=='4'){
-          //             return {
-          //             color: color4,
-          //             fillColor: color4,
-          //             fillOpacity: 0.8
-          //             }
-          //           }else if(Priority=='5'){
-          //             return {
-          //             color: color5,
-          //             fillColor: color5,
-          //             fillOpacity: 0.8
-          //             }
-          //           }else if(Priority=='6'){
-          //             return {
-          //             color: color6,
-          //             fillColor: color6,
-          //             fillOpacity: 0.8
-          //             }
-          //           }else{
-          //             return {
-          //               color: "white",
-          //               fillColor: "white",
-          //               fillOpacity: 0.8
-          //               }
-          //           }
-          //         }
-          //       }).bindPopup('id: '+ data[i].id+'<br>polygon_name: '+ data[i].polygon_name+'<br>Price: '+ data[i].price+'<br>P_value: '+ data[i].P_value+'<br>K_value: '+ data[i].K_value+'<br>PH_value: '+ data[i].PH_value+'<br>Lime_value: '+ data[i].Lime_value,{minWidth: 200})
-          //         .bindTooltip('pH '+ data[i].PH_value,{permanent:true,direction:'center'});
-          //       all_data_Layer.addLayer(poly);
-          //     }
-          //   }
-          //   all_data_Layer.addTo(map);
-          // });
-
-
-
-
-          
-
 
     var drawnItems = new L.FeatureGroup();
     map.addLayer(drawnItems);
@@ -876,19 +664,6 @@ export default class Map extends Component {
       var arr = layer.toGeoJSON()
        polycoords = JSON.stringify(arr);
        $('#mymodalopenbtn').trigger( "click" );
-      //   geomfordb=arr_for_db
-      // // console.log(geomfordb)
-      // // console.log(arr_for_db);
-      // // $("#cords").val(JSON.stringify(arr_for_db))
-      //     // var geom3=geom1.toString();
-      //     // console.log(geom3);
-      // // var geom=layer.getLatLngs();
-  
-      // $("#cords").val(arr_for_db);
-      // if (type === 'marker') {
-      //     layer.bindPopup('A popup!');
-      //   }
-  
         drawnItems.addLayer(layer);
 
   
@@ -902,9 +677,6 @@ export default class Map extends Component {
       var arr = poly.toGeoJSON()
        polycoords = JSON.stringify(arr);
       $('#mymodalopenbtn').trigger( "click" );
-      // geomfordb=arr_for_db
-      // // console.log(geomfordb)
-      // $("#cords").val(arr_for_db)
     });    
     
     var measuredistance=L.control.polylineMeasure({showUnitControl: true}).addTo(map);
@@ -921,8 +693,6 @@ export default class Map extends Component {
     setTimeout(
       function() {
         map.on('click', function(e){
-            // $('#mymodalopenbtn').trigger( "click" );
-            // L.marker(e.latlng).addTo(map);
             console.log(e.latlng.lat + ", " + e.latlng.lng)
         });
       }
@@ -939,19 +709,17 @@ export default class Map extends Component {
       
     }
     const btnvalue = event.target.value
-    if(event.target.value === 'pH'){
+    if(btnvalue === 'pH'){
       polygon_maker_by_filter("pH") 
-      console.log("pH btn Clicked")
-    } else if(event.target.value === 'p_index'){
+      // console.log("pH btn Clicked")
+    } else if(btnvalue === 'p_index'){
       polygon_maker_by_filter("p_index") 
-      console.log("p_index btn Clicked")
+      // console.log("p_index btn Clicked")
     }
     else{
       polygon_maker_by_filter("k_index") 
-      console.log("k_index btn Clicked")
+      // console.log("k_index btn Clicked")
     }
-    
-    this.setState({filterval: btnvalue})
 
   }
   
