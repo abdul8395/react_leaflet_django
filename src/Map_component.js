@@ -95,9 +95,19 @@ var legend
     //  const url = "http://127.0.0.1:8000/farmers/farmers/1/";
     //  const response = await fetch(url)
     //  const fields = await response.json();
+
+
+    setTimeout( function() {
+      axios.get('http://127.0.0.1:8000/farmers/farmers/1/').then(resp => {
+        console.log(resp.data);
+      })
+      console.log(data)
+  }.bind(this),2000);
+    
+  
      
     
-     var geojson_from_url={
+     var url={
       "id": 1,
       "name": "Farmer Joe",
       "phone_number": "+353858438930",
@@ -364,7 +374,7 @@ var legend
         ]
       }
     }
-    var fields=geojson_from_url.fields
+    var fields=url.fields
     var data=fields.features
     // console.log(data[0].properties.pH)
 
@@ -450,14 +460,14 @@ var legend
            legend.onAdd = function(map) {
              var div = L.DomUtil.create("div", "legend");
              div.innerHTML += "<h4>pH Legend</h4>";
-             div.innerHTML += '<i style="background:'+color7+'"></i><span>6-7</span><br>';
-             div.innerHTML += '<i style="background:'+color6+'"></i><span>5-6</span><br>';
-             div.innerHTML += '<i style="background:'+color5+'"></i><span>4-5</span><br>';
-             div.innerHTML += '<i style="background:'+color4+'"></i><span>3-4</span><br>';
-             div.innerHTML += '<i style="background:'+color3+'"></i><span>2-3</span><br>';
-             div.innerHTML += '<i style="background:'+color2+'"></i><span>1-2</span><br>';
-             div.innerHTML += '<i style="background:'+color1+'"></i><span>0-1</span><br>';
-             div.innerHTML += '<i style="background:'+color0+'"></i><span>0-0</span><br>';
+             div.innerHTML += '<i style="background:'+color7+'"></i><span>6-7 pH-Value</span><br>';
+             div.innerHTML += '<i style="background:'+color6+'"></i><span>5-6 pH-Value</span><br>';
+             div.innerHTML += '<i style="background:'+color5+'"></i><span>4-5 pH-Value</span><br>';
+             div.innerHTML += '<i style="background:'+color4+'"></i><span>3-4 pH-Value</span><br>';
+             div.innerHTML += '<i style="background:'+color3+'"></i><span>2-3 pH-Value</span><br>';
+             div.innerHTML += '<i style="background:'+color2+'"></i><span>1-2 pH-Value</span><br>';
+             div.innerHTML += '<i style="background:'+color1+'"></i><span>0-1 pH-Value</span><br>';
+             div.innerHTML += '<i style="background:'+color0+'"></i><span>0-0 pH-Value</span><br>';
       
              return div;
            };
@@ -522,11 +532,11 @@ var legend
            legend.onAdd = function(map) {
              var div = L.DomUtil.create("div", "legend");
              div.innerHTML += "<h4>p_index Legend</h4>";
-             div.innerHTML += '<i style="background:'+color4+'"></i><span>3-4</span><br>';
-             div.innerHTML += '<i style="background:'+color3+'"></i><span>2-3</span><br>';
-             div.innerHTML += '<i style="background:'+color2+'"></i><span>1-2</span><br>';
-             div.innerHTML += '<i style="background:'+color1+'"></i><span>0-1</span><br>';
-             div.innerHTML += '<i style="background:'+color0+'"></i><span>0-0</span><br>';
+             div.innerHTML += '<i style="background:'+color4+'"></i><span>3-4 p_index Value</span><br>';
+             div.innerHTML += '<i style="background:'+color3+'"></i><span>2-3 p_index Value</span><br>';
+             div.innerHTML += '<i style="background:'+color2+'"></i><span>1-2 p_index Value</span><br>';
+             div.innerHTML += '<i style="background:'+color1+'"></i><span>0-1 p_index Value</span><br>';
+             div.innerHTML += '<i style="background:'+color0+'"></i><span>0-0 p_index Value</span><br>';
              return div;
            };
            map.addControl(legend);
@@ -588,11 +598,11 @@ var legend
            legend.onAdd = function(map) {
              var div = L.DomUtil.create("div", "legend");
              div.innerHTML += "<h4>k_index Legend</h4>";
-             div.innerHTML += '<i style="background:'+color4+'"></i><span>3-4</span><br>';
-             div.innerHTML += '<i style="background:'+color3+'"></i><span>2-3</span><br>';
-             div.innerHTML += '<i style="background:'+color2+'"></i><span>1-2</span><br>';
-             div.innerHTML += '<i style="background:'+color1+'"></i><span>0-1</span><br>';
-             div.innerHTML += '<i style="background:'+color0+'"></i><span>0-0</span><br>';
+             div.innerHTML += '<i style="background:'+color4+'"></i><span>3-4 k_index Value</span><br>';
+             div.innerHTML += '<i style="background:'+color3+'"></i><span>2-3 k_index Value</span><br>';
+             div.innerHTML += '<i style="background:'+color2+'"></i><span>1-2 k_index Value</span><br>';
+             div.innerHTML += '<i style="background:'+color1+'"></i><span>0-1 k_index Value</span><br>';
+             div.innerHTML += '<i style="background:'+color0+'"></i><span>0-0 k_index Value</span><br>';
              return div;
            };
            map.addControl(legend);
@@ -688,6 +698,9 @@ export default class Map extends Component {
         "Dark Map": dark,
             // "LGA Layer": lga
     };
+
+   
+    
     
     var mylayercontrol= L.control.layers(baseLayers).addTo(map);
     setTimeout(
@@ -777,7 +790,7 @@ export default class Map extends Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" id="modalclosebtn" onClick={this.closeModal}>Close</Button>
+            <Button variant="danger" id="modalclosebtn" onClick={this.closeModal}>Close</Button>
             <Button variant="success" onClick={()=>{savefunc()}}>Save</Button>
           </Modal.Footer>
         </Modal>
